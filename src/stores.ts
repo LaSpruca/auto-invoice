@@ -37,7 +37,7 @@ if (typeof localStorage !== "undefined") {
 theme.subscribe((themeVal) => {
   console.log("Switching theme ", themeVal);
   if (typeof window !== "undefined") {
-    sessionStorage.setItem("theme", themeVal);
+    localStorage.setItem("theme", themeVal);
 
     let themeLink = document.head.querySelector("#theme");
 
@@ -56,64 +56,66 @@ theme.subscribe((themeVal) => {
   }
 });
 const sessionStore: Writable<Stored> =
-  typeof window !== "undefined"
-    ? writable(JSON.parse(sessionStorage.getItem("info")))
+  typeof localStorage !== "undefined"
+    ? writable(JSON.parse(localStorage.getItem("info")))
     : writable({});
 
 let sessionStoreVal: Stored;
 
 sessionStore.subscribe((val) => {
   sessionStoreVal = val;
-  localStorage.setItem("info", JSON.stringify(val));
+  if (typeof localStorage !== "undefined") {
+    localStorage.setItem("info", JSON.stringify(val));
+  }
 });
 
 // All the stores
 export const name: Writable<string> = writable(
-  sessionStoreVal ? sessionStoreVal.name : ""
+  sessionStoreVal ? sessionStoreVal.name ? sessionStoreVal.name : "" : ""
 );
 name.subscribe((val) => sessionStore.set({ ...sessionStoreVal, name: val }));
 
 export const address1: Writable<string> = writable(
-  sessionStoreVal ? sessionStoreVal.address1 : ""
+  sessionStoreVal ? sessionStoreVal.address1 ? sessionStoreVal.address1 : "" : ""
 );
 address1.subscribe((val) =>
   sessionStore.set({ ...sessionStoreVal, address1: val })
 );
 
 export const address2: Writable<string> = writable(
-  sessionStoreVal ? sessionStoreVal.address2 : ""
+  sessionStoreVal ? sessionStoreVal.address2 ? sessionStoreVal.address2 : "" : ""
 );
 address2.subscribe((val) =>
   sessionStore.set({ ...sessionStoreVal, address2: val })
 );
 
 export const phoneNumber: Writable<string> = writable(
-  sessionStoreVal ? sessionStoreVal.phoneNumber : ""
+  sessionStoreVal ? sessionStoreVal.phoneNumber ? sessionStoreVal.phoneNumber : "" : ""
 );
 phoneNumber.subscribe((val) =>
   sessionStore.set({ ...sessionStoreVal, phoneNumber: val })
 );
 
 export const email: Writable<string> = writable(
-  sessionStoreVal ? sessionStoreVal.email : ""
+  sessionStoreVal ? sessionStoreVal.email ? sessionStoreVal.email : "" : ""
 );
 email.subscribe((val) => sessionStore.set({ ...sessionStoreVal, email: val }));
 
 export const invoiceNumber: Writable<number> = writable(
-  sessionStoreVal ? sessionStoreVal.invoiceNumber : 0
+  sessionStoreVal ? sessionStoreVal.invoiceNumber ? sessionStoreVal.invoiceNumber : 0 : 0
 );
 invoiceNumber.subscribe((val) =>
   sessionStore.set({ ...sessionStoreVal, invoiceNumber: val })
 );
 
 export const bankAccount: Writable<string> = writable(
-  sessionStoreVal ? sessionStoreVal.bankAccount : ""
+  sessionStoreVal ? sessionStoreVal.bankAccount ? sessionStoreVal.bankAccount : "" : ""
 );
 bankAccount.subscribe((val) =>
   sessionStore.set({ ...sessionStoreVal, bankAccount: val })
 );
 export const payableTo: Writable<string> = writable(
-  sessionStoreVal ? sessionStoreVal.payableTo : ""
+  sessionStoreVal ? sessionStoreVal.payableTo ? sessionStoreVal.payableTo : "" : ""
 );
 payableTo.subscribe((val) =>
   sessionStore.set({ ...sessionStoreVal, payableTo: val })

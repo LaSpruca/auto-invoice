@@ -60,3 +60,9 @@
     </Row>
   </TopAppBar>
 </header>
+
+<style lang="scss">
+header {
+    padding-bottom: 1rem;
+}
+</style>
