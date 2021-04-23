@@ -1877,7 +1877,7 @@
     "@smui/common" "^3.1.0"
     "@smui/tab-indicator" "^3.1.0"
 
-"@smui/textfield@3.1.0":
+"@smui/textfield@3.1.0", "@smui/textfield@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@smui/textfield/-/textfield-3.1.0.tgz#dd8d3d90ec1d217fb44d83d407d7aacd36e294c8"
   integrity sha512-om5nujF9EmkCWpsOBONr9u/qQu0NKMgfzhu+VRcuJA5k4JixNPgBBG+t9bG9J/UuiO58p5Q6OVnBD021t656YA==
@@ -4059,6 +4059,13 @@ supports-color@^7.0.0, supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
+svelte-calendar@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/svelte-calendar/-/svelte-calendar-2.0.4.tgz#0084a9e7a0279f43aaae4b4a108b0c68a960a0ee"
+  integrity sha512-a9TGBCc17qrvgdO79py2whwvtgaZzOHiMMygc2aNyYzETQI/H60g3kmHyq+llDf+wSEFWqy0LO71rBrzBCfRFA==
+  dependencies:
+    timeUtils "^2.0.0"
+
 svelte-check@^1.0.46:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/svelte-check/-/svelte-check-1.4.0.tgz#5d15f6ce22564fab137d28abb3f6c48aa1a22a12"
@@ -4159,6 +4166,11 @@ terser@^5.0.0:
     commander "^2.20.0"
     source-map "~0.7.2"
     source-map-support "~0.5.19"
+
+timeUtils@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/timeUtils/-/timeUtils-2.0.0.tgz#b3ac3eaa8f6d47e9ca008c76e9fd5b0f0afc18c0"
+  integrity sha512-rk1y/5ix4HczK3q4caEvo2iIhgRIHL6g85sX2rPNse8sKUATzYEAX1jAYYsW139aAcn1b24jV4By0SLmosQVyA==
 
 timsort@^0.3.0:
   version "0.3.0"
