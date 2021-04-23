@@ -1,24 +1,39 @@
 import { writable } from "svelte/store";
 import type { Writable } from "svelte/store";
 
+export type Stored = {
+  name: string;
+  address1: string;
+  address2: string;
+  phoneNumber: string;
+  email: string;
+  invoiceNumber: number;
+  bankAccount: string;
+  payableTo: string;
+};
+
 export type Theme = "light" | "dark";
 
+// Theme shit
 export let theme: Writable<Theme>;
 
+// Try load theme from session
 if (typeof localStorage !== "undefined") {
   if (localStorage.getItem("theme") === "light" || "dark") {
     theme = writable(localStorage?.getItem("theme") as Theme);
   }
 } else if (
+  // Do they use light theme
   typeof window === "undefined" ||
   window.matchMedia("(prefers-color-scheme: light)").matches
 ) {
   theme = writable("light");
-} else window.matchMedia("(prefers-color-scheme: dark").matches;
-{
+} else {
+  // Default to dark theme
   theme = writable("dark");
 }
 
+// When them theme is changed, update shit
 theme.subscribe((themeVal) => {
   console.log("Switching theme ", themeVal);
   if (typeof window !== "undefined") {
@@ -40,3 +55,66 @@ theme.subscribe((themeVal) => {
       .insertAdjacentElement("afterend", themeLink);
   }
 });
+const sessionStore: Writable<Stored> =
+  typeof window !== "undefined"
+    ? writable(JSON.parse(sessionStorage.getItem("info")))
+    : writable({});
+
+let sessionStoreVal: Stored;
+
+sessionStore.subscribe((val) => {
+  sessionStoreVal = val;
+  localStorage.setItem("info", JSON.stringify(val));
+});
+
+// All the stores
+export const name: Writable<string> = writable(
+  sessionStoreVal ? sessionStoreVal.name : ""
+);
+name.subscribe((val) => sessionStore.set({ ...sessionStoreVal, name: val }));
+
+export const address1: Writable<string> = writable(
+  sessionStoreVal ? sessionStoreVal.address1 : ""
+);
+address1.subscribe((val) =>
+  sessionStore.set({ ...sessionStoreVal, address1: val })
+);
+
+export const address2: Writable<string> = writable(
+  sessionStoreVal ? sessionStoreVal.address2 : ""
+);
+address2.subscribe((val) =>
+  sessionStore.set({ ...sessionStoreVal, address2: val })
+);
+
+export const phoneNumber: Writable<string> = writable(
+  sessionStoreVal ? sessionStoreVal.phoneNumber : ""
+);
+phoneNumber.subscribe((val) =>
+  sessionStore.set({ ...sessionStoreVal, phoneNumber: val })
+);
+
+export const email: Writable<string> = writable(
+  sessionStoreVal ? sessionStoreVal.email : ""
+);
+email.subscribe((val) => sessionStore.set({ ...sessionStoreVal, email: val }));
+
+export const invoiceNumber: Writable<number> = writable(
+  sessionStoreVal ? sessionStoreVal.invoiceNumber : 0
+);
+invoiceNumber.subscribe((val) =>
+  sessionStore.set({ ...sessionStoreVal, invoiceNumber: val })
+);
+
+export const bankAccount: Writable<string> = writable(
+  sessionStoreVal ? sessionStoreVal.bankAccount : ""
+);
+bankAccount.subscribe((val) =>
+  sessionStore.set({ ...sessionStoreVal, bankAccount: val })
+);
+export const payableTo: Writable<string> = writable(
+  sessionStoreVal ? sessionStoreVal.payableTo : ""
+);
+payableTo.subscribe((val) =>
+  sessionStore.set({ ...sessionStoreVal, payableTo: val })
+);
