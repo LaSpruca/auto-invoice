@@ -6,3 +6,8 @@
 .calendar-button {
     width: 100% !important;
 }
+
+
+body {
+    max-height: 100vh;
+}

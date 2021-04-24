@@ -12,6 +12,12 @@ export type Stored = {
   payableTo: string;
 };
 
+export type Item = {
+  description: string;
+  quantity: number;
+  unitPrice: number;
+};
+
 export type Theme = "light" | "dark";
 
 // Theme shit
@@ -116,12 +122,15 @@ email.subscribe((val) => sessionStore.set({ ...sessionStoreVal, email: val }));
 export const invoiceNumber: Writable<number> = writable(
   sessionStoreVal
     ? sessionStoreVal.invoiceNumber
-      ? sessionStoreVal.invoiceNumber
-      : 0
-    : 0
+      ? sessionStoreVal.invoiceNumber + 1
+      : 1
+    : 1
 );
 invoiceNumber.subscribe((val) =>
-  sessionStore.set({ ...sessionStoreVal, invoiceNumber: val })
+  sessionStore.set({
+    ...sessionStoreVal,
+    invoiceNumber: parseInt(val + ""),
+  })
 );
 
 export const bankAccount: Writable<string> = writable(
@@ -156,3 +165,20 @@ export const submittedDate: Writable<Date> = writable(now);
 export const dateDue: Writable<Date> = writable(
   new Date(now.setDate(now.getDate() + 30))
 );
+
+export const items: Writable<Item[]> = writable([
+  { description: "", quantity: 0, unitPrice: 0 },
+]);
+items.subscribe((value) => {
+  console.log(value);
+  if (value.length < 1) {
+    console.log("Shit is empty");
+    items.set([{ description: "", quantity: 0, unitPrice: 0 }]);
+  } else if (
+    value[value.length - 1].description !== "" ||
+    value[value.length - 1].quantity !== 0 ||
+    value[value.length - 1].unitPrice !== 0
+  ) {
+    items.set([...value, { description: "", quantity: 0, unitPrice: 0 }]);
+  }
+});
