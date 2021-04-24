@@ -89,7 +89,7 @@
   </div>
   <hr>
   <table class="expenses-table">
-    <tr>
+    <tr class="table-header">
       <th><span>Description</span></th>
       <th><span>Quantity</span></th>
       <th><span>Unit Price</span></th>
@@ -100,8 +100,8 @@
         <tr>
           <td>{it.description}</td>
           <td>{it.quantity}</td>
-          <td>{$currency}{dp2(parseFloat(it.unitPrice))}</td>
-          <td>{$currency}{dp2(it.unitPrice * it.quantity)}</td>
+          <td>{$currency} {!parseFloat(it.unitPrice) ? "0.00" : dp2(parseFloat(it.unitPrice))}</td>
+          <td>{$currency} {dp2(it.unitPrice * it.quantity)}</td>
         </tr>
       {/if}
     {/each}
@@ -193,12 +193,20 @@
       width: 50%;
     }
 
+    tr {
+      border: none;
+    }
+
     tr td {
       text-align: center;
 
       &:nth-child(1) {
         text-align: left;
       }
+    }
+
+    tr:nth-child(2n+1):not(.table-header) {
+      background: #eee;
     }
   }
 
