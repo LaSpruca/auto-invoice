@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import {
     items,
     dateDue,
@@ -20,6 +20,10 @@
     gst
   } from "../stores";
 
+  function dp2(num: number) {
+    return (Math.round(num * 100) / 100).toFixed(2)
+  }
+
   import moment from 'moment';
 
   let subtotal = 0;
@@ -32,16 +36,16 @@
       (!parseFloat(e.quantity) || !parseFloat(e.unitPrice)) ? 0 : parseFloat(e.quantity) * parseFloat(e.unitPrice)
     ).reduce((coll, val) => coll + val, 0);
     gstVal = subtotal * $gst;
-    total = subtotal + gstVal + parseFloat($adjustments);
+    total = subtotal + gstVal + parseFloat($adjustments as string);
   });
 
   gst.subscribe(value => {
     gstVal = subtotal * value;
-    total = subtotal + gstVal + parseFloat($adjustments);
+    total = subtotal + gstVal + parseFloat($adjustments as string);
   });
 
   adjustments.subscribe(value => {
-    total = subtotal + gstVal + parseFloat(value);
+    total = subtotal + gstVal + parseFloat(value as string);
   });
 </script>
 
@@ -96,8 +100,8 @@
         <tr>
           <td>{it.description}</td>
           <td>{it.quantity}</td>
-          <td>{$currency}{it.unitPrice}</td>
-          <td>{$currency}{it.unitPrice * it.quantity}</td>
+          <td>{$currency}{dp2(parseFloat(it.unitPrice))}</td>
+          <td>{$currency}{dp2(it.unitPrice * it.quantity)}</td>
         </tr>
       {/if}
     {/each}
@@ -106,10 +110,10 @@
   <hr/>
 
   <div class="totals">
-    <h2>Subtotal: <span>{$currency}{subtotal}</span></h2>
-    <h3>GST: <span>{$currency}{gstVal}</span></h3>
-    <h3>Adjustments: <span>{$currency}{$adjustments}</span></h3>
-    <h1>Total: <span>{$currency}{total}</span></h1>
+    <h2>Subtotal: <span>{$currency}{dp2(subtotal)}</span></h2>
+    <h3>GST: <span>{$currency}{dp2(gstVal)}</span></h3>
+    <h3>Adjustments: <span>{$currency}{dp2(parseFloat($adjustments))}</span></h3>
+    <h1>Total: <span>{$currency}{dp2(total)}</span></h1>
   </div>
 </div>
 
