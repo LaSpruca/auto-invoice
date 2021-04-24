@@ -10,12 +10,14 @@ export type Stored = {
   invoiceNumber: number;
   bankAccount: string;
   payableTo: string;
+  gst: number;
+  currency: string;
 };
 
 export type Item = {
   description: string;
-  quantity: number;
-  unitPrice: number;
+  quantity: string;
+  unitPrice: string;
 };
 
 export type Theme = "light" | "dark";
@@ -154,10 +156,27 @@ payableTo.subscribe((val) =>
   sessionStore.set({ ...sessionStoreVal, payableTo: val })
 );
 
+export const currency: Writable<string> = writable(
+  sessionStoreVal
+    ? sessionStoreVal.currency
+      ? sessionStoreVal.currency
+      : "$"
+    : "$"
+);
+currency.subscribe((val) =>
+  sessionStore.set({ ...sessionStoreVal, currency: val })
+);
+
+export const gst: Writable<number> = writable(
+  sessionStoreVal ? (sessionStoreVal.gst ? sessionStoreVal.gst : 0.15) : 0.15
+);
+gst.subscribe((val) => sessionStore.set({ ...sessionStoreVal, gst: val }));
+
 export const clientName: Writable<string> = writable("");
 export const clientCompanyName: Writable<string> = writable("");
 export const clientCompanyAddress1: Writable<string> = writable("");
 export const clientCompanyAddress2: Writable<string> = writable("");
+export let adjustments: Writable<number> = writable(0);
 
 let now = new Date();
 
@@ -170,7 +189,6 @@ export const items: Writable<Item[]> = writable([
   { description: "", quantity: 0, unitPrice: 0 },
 ]);
 items.subscribe((value) => {
-  console.log(value);
   if (value.length < 1) {
     console.log("Shit is empty");
     items.set([{ description: "", quantity: 0, unitPrice: 0 }]);

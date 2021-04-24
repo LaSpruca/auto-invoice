@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Textfield from '@smui/textfield';
+  import Textfield, {Prefix} from '@smui/textfield';
   import Icon from '@smui/textfield/icon';
   // @ts-ignore
   import DatePicker from "svelte-calendar";
@@ -11,7 +11,10 @@
     clientCompanyAddress2,
     invoiceNumber,
     submittedDate,
-    dateDue
+    dateDue,
+    currency,
+    gst,
+    adjustments
   } from '../stores';
   import InvoiceItems from "../components/InvoiceItems.svelte";
   import Invoice from "../components/Invoice.svelte";
@@ -56,6 +59,17 @@
       </div>
 
       <Textfield variant="outlined" bind:value={$invoiceNumber} label="Invoice Number" type="number">
+        <Icon class="material-icons" slot="leadingIcon">tag</Icon>
+      </Textfield>
+
+      <Textfield variant="outlined" bind:value={$currency} label="Currency" type="text"/>
+
+      <Textfield variant="outlined" bind:value={$adjustments} label="Adjustments" type="float">
+        <Icon class="material-icons" slot="leadingIcon">edit</Icon>
+        <Prefix>{$currency}</Prefix>
+      </Textfield>
+
+      <Textfield variant="outlined" bind:value={$gst} label="GST" type="float">
         <Icon class="material-icons" slot="leadingIcon">tag</Icon>
       </Textfield>
     </div>

@@ -1,9 +1,9 @@
 <script lang="ts">
   import type {Item} from "../stores";
-  import {items} from "../stores";
+  import {items, currency} from "../stores";
   import type {Writable} from "svelte/store";
   import {writable} from "svelte/store";
-  import Textfield from '@smui/textfield';
+  import Textfield, {Prefix} from '@smui/textfield';
   import Icon from '@smui/textfield/icon';
   import IconButton from '@smui/icon-button';
 
@@ -28,7 +28,7 @@
     let temp: Item[] = [];
 
     for (let a of value) {
-      temp.push({description: a[0] as string, quantity: a[1] as number, unitPrice: a[2] as number});
+      temp.push({description: a[0] as string, quantity: a[1], unitPrice: a[2]});
     }
 
     items.set(temp);
@@ -44,12 +44,12 @@
             <Icon class="material-icons" slot="leadingIcon">description</Icon>
           </Textfield>
         {:else if index === 1}
-          <Textfield bind:value={field} label="Quantity" type="number">
-            <Icon class="material-icons" slot="leadingIcon">description</Icon>
+          <Textfield bind:value={field} label="Quantity" type="float">
+            <Icon class="material-icons" slot="leadingIcon">tag</Icon>
           </Textfield>
         {:else}
-          <Textfield bind:value={field} label="Description" type="text">
-            <Icon class="material-icons" slot="leadingIcon">description</Icon>
+          <Textfield bind:value={field} label="Unit Pice" type="float">
+            <Prefix>{$currency}</Prefix>
           </Textfield>
         {/if}
       {/each}
