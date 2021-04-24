@@ -1,0 +1,7 @@
+__sapper__
+.vscode
+.idea
+node_modules
+README.md
+.git
+.gitignore
