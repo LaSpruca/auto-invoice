@@ -1470,6 +1470,11 @@
     "@material/theme" "^11.0.0"
     tslib "^2.1.0"
 
+"@mdi/js@^5.9.55":
+  version "5.9.55"
+  resolved "https://registry.yarnpkg.com/@mdi/js/-/js-5.9.55.tgz#8f5bc4d924c23f30dab20545ddc768e778bbc882"
+  integrity sha512-BbeHMgeK2/vjdJIRnx12wvQ6s8xAYfvMmEAVsUx9b+7GiQGQ9Za8jpwp17dMKr9CgKRvemlAM4S7S3QOtEbp4A==
+
 "@polka/url@^1.0.0-next.12", "@polka/url@^1.0.0-next.9":
   version "1.0.0-next.12"
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.12.tgz#431ec342a7195622f86688bbda82e3166ce8cb28"
@@ -1611,14 +1616,6 @@
     "@material/dom" "^11.0.0"
     svelte "^3.35.0"
 
-"@smui/common@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@smui/common/-/common-4.0.0.tgz#fa7a9da8e7ed58fa88764253c81a0558dfe897fc"
-  integrity sha512-fq/qDUFdSAiLe8yhGQ1n7OB3e3UfEID+tdR7B4QFTo0G3HfOEb3RFpLzWNWVbArhkZkVPL6aZnMiTW9HWeqgvg==
-  dependencies:
-    "@material/dom" "^11.0.0"
-    svelte "^3.35.0"
-
 "@smui/data-table@3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@smui/data-table/-/data-table-3.1.0.tgz#685b267265d962df8001e3b0c7dd41486eb74187"
@@ -1659,16 +1656,6 @@
     "@material/feature-targeting" "^11.0.0"
     "@smui/common" "^3.1.0"
     "@smui/ripple" "^3.1.0"
-
-"@smui/fab@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@smui/fab/-/fab-4.0.0.tgz#ed7e342102d93aa558b052f7f5af742466628ef7"
-  integrity sha512-1RWYKG3nHMkbVGbjpVzroh7hRb0q4KbtnS7VNzGgZeEdtbQDvosLZqe4u5bF6T7NimcrVRq4KvuHoKLfvupEiQ==
-  dependencies:
-    "@material/fab" "^11.0.0"
-    "@material/feature-targeting" "^11.0.0"
-    "@smui/common" "^4.0.0"
-    "@smui/ripple" "^4.0.0"
 
 "@smui/floating-label@3.1.0", "@smui/floating-label@^3.1.0":
   version "3.1.0"
@@ -1795,14 +1782,6 @@
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@smui/ripple/-/ripple-3.1.0.tgz#c14ba036b8a5ada4cfc2504df21a2c81cbd12b3e"
   integrity sha512-PgutiQ+MLX62VUp+KciOnIvmXNAG+FDvIJWNg2Vu+bePbskSvn0d0egErp6hZhVOZqeFH360JW6HwgskjDJ1mw==
-  dependencies:
-    "@material/dom" "^11.0.0"
-    "@material/ripple" "^11.0.0"
-
-"@smui/ripple@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@smui/ripple/-/ripple-4.0.0.tgz#aa96b9c5888568ba3ed8b5c21ce2973d07e762d5"
-  integrity sha512-oqy9Z73FNCvZQ+YhApJyBHmgfqYRL5jmtdVnqhQ+gzwQJOu7WNv2olFYoDfhNCSL+ZC3dvjfWvoIzknHyMxrvQ==
   dependencies:
     "@material/dom" "^11.0.0"
     "@material/ripple" "^11.0.0"
