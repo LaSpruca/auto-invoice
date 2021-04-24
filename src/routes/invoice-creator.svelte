@@ -1,6 +1,7 @@
 <script lang="ts">
   import Textfield, {Prefix} from '@smui/textfield';
   import Icon from '@smui/textfield/icon';
+  import Fab, {Label} from "@smui/fab";
   // @ts-ignore
   import DatePicker from "svelte-calendar";
 
@@ -88,6 +89,11 @@
     <Invoice/>
   </div>
 </div>
+
+<Fab expanded href="/invoice" extended style="position: fixed; bottom: 1rem; right: 1rem">
+  <Icon class="material-icons">navigate_next</Icon>
+  <Label>Next</Label>
+</Fab>
 
 <style lang="scss">
   #the-great-divide {

@@ -15,7 +15,7 @@
   <Drawer bind:open fixed={false} variant="modal">
     <Header>
       <Title>Invoice Creator</Title>
-      <Subtitle>brrr.</Subtitle>
+      <Subtitle>Select a stage</Subtitle>
     </Header>
     <Content>
       <List>
@@ -25,7 +25,7 @@
             on:click={() => (open = false)}
         >
           <Graphic aria-hidden="true" class="material-icons">info</Graphic>
-          <Text>Information</Text>
+          <Text>Your Information</Text>
         </Item>
         <Item
             activated={$page.path === "/invoice-creator"}
@@ -33,7 +33,7 @@
             on:click={() => (open = false)}
         >
           <Graphic aria-hidden="true" class="material-icons">edit</Graphic>
-          <Text>Invoice Creator</Text>
+          <Text>Invoice Information</Text>
         </Item>
         <Item
             activated={$page.path === "/invoice"}
@@ -55,7 +55,14 @@
         >menu
         </IconButton
         >
-        <Title>Invoice Creator</Title>
+        <Title>
+          <span class="bolder">Invoice Creator</span> |
+          {#if $page.path === "/"}Your info
+          {:else if $page.path === "/invoice-creator"}Invoice Information
+          {:else if $page.path === "/invoice"}Invoice
+          {:else}Error
+          {/if}
+        </Title>
       </Section>
       <Section align="end" toolbar>
         <IconButton
@@ -73,5 +80,10 @@
 <style lang="scss">
   header {
     padding-bottom: 1rem;
+  }
+
+  .bolder {
+    font-weight: bolder;
+    padding-right: 5px;
   }
 </style>

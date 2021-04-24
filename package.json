@@ -27,6 +27,7 @@
     "@rollup/plugin-replace": "^2.4.0",
     "@rollup/plugin-typescript": "^6.0.0",
     "@rollup/plugin-url": "^5.0.0",
+    "@smui/fab": "^4.0.0",
     "@smui/textfield": "^3.1.0",
     "@tsconfig/svelte": "^1.0.10",
     "@types/compression": "^1.7.0",

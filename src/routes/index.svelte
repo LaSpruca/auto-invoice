@@ -1,3 +1,19 @@
+<script>
+  import Textfield from '@smui/textfield';
+  import Icon from '@smui/textfield/icon';
+  import Fab, {Label} from "@smui/fab";
+
+  import {
+    name,
+    address1,
+    address2,
+    phoneNumber,
+    email,
+    bankAccount,
+    payableTo,
+  } from "../stores";
+</script>
+
 <svelte:head>
   <title>Auto Invoice | Information</title>
 </svelte:head>
@@ -35,20 +51,10 @@
   </Textfield>
 </div>
 
-<script>
-  import Textfield from '@smui/textfield';
-  import Icon from '@smui/textfield/icon';
-
-  import {
-    name,
-    address1,
-    address2,
-    phoneNumber,
-    email,
-    bankAccount,
-    payableTo,
-  } from "../stores";
-</script>
+<Fab expanded href="/invoice-creator" extended style="position: fixed; bottom: 1rem; right: 1rem">
+  <Icon class="material-icons">navigate_next</Icon>
+  <Label>Next</Label>
+</Fab>
 
 <style lang="scss">
   .inputs {
