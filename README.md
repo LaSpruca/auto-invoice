@@ -1,3 +1,3 @@
 # Auto Invoice
 
-Making Invoices Greate again since 2021™
+Making Invoices Great again since 2021™

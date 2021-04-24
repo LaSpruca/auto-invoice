@@ -22,6 +22,11 @@
   submittedDate.subscribe((val) => console.log(val));
 </script>
 
+<svelte:head>
+  <title>Auto Invoice | Invoice Creator</title>
+</svelte:head>
+
+
 <div id="the-great-divide">
   <div class="left">
     <h1>Client info</h1>
@@ -86,16 +91,25 @@
 
 <style lang="scss">
   #the-great-divide {
-    display: grid;
+    display: flex;
     grid-template-columns: 50% 50%;
+    justify-content: space-evenly;
+    align-content: center;
+
 
     .inputs {
       display: grid;
       grid-template-columns: auto auto;
+      width: 100%;
 
       & > :global(label) {
         margin: 10px;
       }
+    }
+
+    .right {
+      width: max-content;
+      flex: 0 1 210mm;
     }
 
     h1 {

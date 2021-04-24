@@ -21,7 +21,6 @@
   } from "../stores";
 
   import moment from 'moment';
-  import {writable} from "svelte/store";
 
   let subtotal = 0;
   let gstVal = 0;
@@ -29,7 +28,9 @@
 
 
   items.subscribe(value => {
-    subtotal = value.map(e => parseFloat(e.quantity) * parseFloat(e.unitPrice)).reduce((coll, val) => coll + val, 0);
+    subtotal = value.map(e =>
+      (!parseFloat(e.quantity) || !parseFloat(e.unitPrice)) ? 0 : parseFloat(e.quantity) * parseFloat(e.unitPrice)
+    ).reduce((coll, val) => coll + val, 0);
     gstVal = subtotal * $gst;
     total = subtotal + gstVal + parseFloat($adjustments);
   });

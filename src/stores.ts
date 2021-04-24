@@ -186,17 +186,17 @@ export const dateDue: Writable<Date> = writable(
 );
 
 export const items: Writable<Item[]> = writable([
-  { description: "", quantity: 0, unitPrice: 0 },
+  { description: "", quantity: "", unitPrice: "" },
 ]);
 items.subscribe((value) => {
   if (value.length < 1) {
     console.log("Shit is empty");
-    items.set([{ description: "", quantity: 0, unitPrice: 0 }]);
+    items.set([{ description: "", quantity: "", unitPrice: "" }]);
   } else if (
     value[value.length - 1].description !== "" ||
-    value[value.length - 1].quantity !== 0 ||
-    value[value.length - 1].unitPrice !== 0
+    value[value.length - 1].quantity !== "" ||
+    value[value.length - 1].unitPrice !== ""
   ) {
-    items.set([...value, { description: "", quantity: 0, unitPrice: 0 }]);
+    items.set([...value, { description: "", quantity: "", unitPrice: "" }]);
   }
 });

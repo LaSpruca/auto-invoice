@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>Auto Invoice | Information</title>
+</svelte:head>
+
 <h1>Your Info</h1>
 
 <div class="inputs">

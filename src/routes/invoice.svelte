@@ -2,6 +2,10 @@
   import Invoice from "../components/Invoice.svelte";
 </script>
 
+<svelte:head>
+  <title>Auto Invoice | Invoice</title>
+</svelte:head>
+
 <div class="invoice">
   <Invoice/>
 </div>
@@ -15,6 +19,7 @@
     align-items: center;
 
     :global(.invoice) {
+      flex: 0 1 210mm;
       min-height: 297mm;
     }
   }
