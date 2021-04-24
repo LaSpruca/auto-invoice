@@ -1,6 +1,8 @@
 <script lang="ts">
   import Invoice from "../components/Invoice.svelte";
   import Fab, {Label, Icon} from "@smui/fab";
+  import moment from "moment";
+  import {submittedDate, clientName, clientCompanyName} from "../stores";
 
   function openPrintWindow() {
     if (typeof window !== 'undefined') {
@@ -10,6 +12,7 @@
       printWindow.document.write("</head><body><script>print();</" + "script>");
       printWindow.document.write(document.getElementById("content").innerHTML);
       printWindow.document.write("</body>");
+      printWindow.document.title = `Invoice-${moment($submittedDate).format("yy/MM/DD")}-${$clientName}-${$clientCompanyName}`;
     }
   }
 </script>
