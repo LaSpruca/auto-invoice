@@ -11,6 +11,10 @@ log = "*"
 dotenv = "*"
 tokio = { version = "*", features = ["full", "rt"] }
 actix-web = "*"
-firebase-admin-auth-rs = "*"
 serde = { version = "*", features = ["derive"] }
 futures-util = "*"
+actix-cors = "*"
+jsonwebtoken = { version = "8", features = ["use_pem"] }
+reqwest = "*"
+serde_json = "*"
+pem = "*"

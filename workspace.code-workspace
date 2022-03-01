@@ -9,7 +9,9 @@
 	],
 	"settings": {
 		"cSpell.words": [
-			"signin"
+			"authz",
+			"signin",
+			"signout"
 		]
 	}
 }

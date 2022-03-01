@@ -1,12 +1,14 @@
 use actix_web::{Responder, HttpRequest};
-use super::user::RequestUser;
+use crate::user;
+
+use super::user::UserRequest;
 
 pub async fn index() -> impl Responder {
     "Hello world!"
 }
 
-pub async fn privileged(user: RequestUser) -> impl Responder {
-    user.uid.to_string()
+pub async fn privileged(user: UserRequest) -> impl Responder {
+    ""
 }
 
 pub async fn default(req: HttpRequest) -> impl Responder {

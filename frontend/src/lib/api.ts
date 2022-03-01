@@ -1,24 +1,17 @@
+import { userToken } from "./stores";
 import axios from "axios";
-import { user } from "./stores";
+import { get } from "svelte/store";
 
-let userToken = null;
+export async function getPrivileged(route: string, params?: Record<string, any>) {    
+    let token = get(userToken);
 
-export function getPrivileged(route: string, params?: Record<string, any>) {
-    const headers: Record<string, string> = {};
-
-    if (userToken) {
-        headers["Authorization"] = 'Bearer ' + userToken;
+    if (!token) {
+        throw new Error("Not logged in");
     }
 
-    console.log(headers)
-
-    return axios.get('localhost:8000' + route + (params ? "?" + new URLSearchParams(params).toString() : ""), headers)
+    return axios.get(`http://localhost:8000${route}${(params ? "?" + new URLSearchParams(params).toString() : "")}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
 };
-
-user.subscribe(async (user) => {
-    if (user) {
-        userToken = await user.getIdToken();
-    } else {
-        userToken = null;
-    }
-}) ;

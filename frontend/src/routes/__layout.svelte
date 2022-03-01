@@ -1,21 +1,22 @@
 <script lang="ts">
 	import '../global.scss';
-	import { user } from '$lib/stores';
+	import { user, userToken } from '$lib/stores';
 	import Index from './index.svelte';
-import { getPrivileged } from '$lib/api';
-	
+	import { getPrivileged } from '$lib/api';
+	import { get } from 'svelte/store';
+
 	$: {
-		getPrivileged("/porn").then((res) => {
-			console.log(res);
-		}).catch(err => console.error(err));
-		if ($user) {
-			console.log($user.toJSON())
+		if ($userToken) {
+			getPrivileged('/porn')
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => console.error(err));
 		}
 	}
-
 </script>
 
-{#if user}
+{#if $user}
 	<slot />
 {:else}
 	<Index />

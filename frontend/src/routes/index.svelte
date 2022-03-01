@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { signInWithGoogle } from "$lib/firebase";
 	import { user } from "$lib/stores";
 	import { goto } from "$app/navigation"; 
+import { loginWithPopup } from "$lib/authz";
 
 	$: if ($user) {
-		goto("/dashboard");
+		goto("/app/dashboard");
 	}
 </script>
 
 <div class="container">
 	<div class="wrapper">
 		<h1>Auto invoice</h1>
-		<button on:click={signInWithGoogle}>Login</button>
+		<button on:click={loginWithPopup}>Login</button>
 	</div>
 </div>
 
@@ -47,7 +47,7 @@
 	}
 
 	button {
-		background-color: $background;
+		background-color: $background-dark;
 		border: none;
 		border-radius: 1rem;
 		padding: 1rem;
@@ -83,7 +83,7 @@
 			border: 0 white solid;
 		}
 		100% {
-			background-color: $background-light;
+			background-color: $background;
 			border: 2px white solid;
 		}
 	}
