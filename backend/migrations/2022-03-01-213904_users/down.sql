@@ -1,1 +1,5 @@
--- This file should undo anything in `up.sql`
+drop table users;
+drop table clients;
+drop table templates;
+drop table invoices;
+drop table invoice_items;
