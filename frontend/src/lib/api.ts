@@ -8,10 +8,12 @@ export async function getPrivileged(route: string, params?: Record<string, any>)
     if (!token) {
         throw new Error("Not logged in");
     }
-
+    
     return axios.get(`http://localhost:8000${route}${(params ? "?" + new URLSearchParams(params).toString() : "")}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     })
 };
+
+

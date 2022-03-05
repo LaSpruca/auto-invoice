@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { user } from "$lib/stores";
-	import { goto } from "$app/navigation"; 
-import { loginWithPopup } from "$lib/authz";
+	import { user } from '$lib/stores';
+	import { goto } from '$app/navigation';
+	import { loginWithPopup } from '$lib/authz';
 
 	$: if ($user) {
-		goto("/app/dashboard");
+		goto('/app/dashboard');
 	}
 </script>
 

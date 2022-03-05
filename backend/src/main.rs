@@ -1,13 +1,15 @@
+pub mod authz_state;
 mod routes;
 pub mod user;
 
 use actix_cors::Cors;
 use actix_web::{http::header, middleware, web, App, HttpServer};
-use log::{error};
-use std::{env::var};
+use log::error;
+use std::env::var;
+use std::sync::{Arc, Mutex};
 use std::time::Duration;
-use std::sync::Mutex;
 
+use crate::authz_state::AuthZState;
 use jsonwebtoken::jwk::JwkSet;
 
 #[tokio::main(flavor = "current_thread")]
@@ -17,28 +19,41 @@ async fn main() -> std::io::Result<()> {
 
     pretty_env_logger::init();
 
-    let authority = var("AUTHZ_AUTHORITY").expect("Please set the `AUTHZ_AUTHORITY` environment variable");
+    let authority =
+        var("AUTHZ_AUTHORITY").expect("Please set the `AUTHZ_AUTHORITY` environment variable");
 
-    let jwks: web::Data<Mutex<JwkSet>> = web::Data::new(match reqwest::get(&format!("{authority}.well-known/jwks.json")).await {
-        Ok(response) => {
-            let text = response.text().await.unwrap();
-            Mutex::new(serde_json::from_str(&text).unwrap())
-        }
-        Err(err) => {
-            error!("Error fetching jwks {err}");
-            panic!("");
-        }
+    let jwks: Arc<Mutex<JwkSet>> = Arc::new(
+        match reqwest::get(&format!("{authority}.well-known/jwks.json")).await {
+            Ok(response) => {
+                let text = response.text().await.unwrap();
+                Mutex::new(serde_json::from_str(&text).unwrap())
+            }
+            Err(err) => {
+                error!("Error fetching jwks {err}");
+                panic!("");
+            }
+        },
+    );
+
+    let authz_state = web::Data::new(AuthZState {
+        tokens: jwks.clone(),
+        authority: authority.to_owned(),
+        audience: var("AUTHZ_AUDIENCE")
+            .expect("Please set the `AUTHZ_AUDIENCE` environment variable")
+            .to_owned(),
     });
 
-    let jwks2 = jwks.clone();
+    let authz_state_cloned = authz_state.clone();
 
     tokio::spawn(async move {
-        let authority = var("AUTHZ_AUTHORITY").expect("Please set the `AUTHZ_AUTHORITY` environment variable");
+        let authority =
+            var("AUTHZ_AUTHORITY").expect("Please set the `AUTHZ_AUTHORITY` environment variable");
+
         loop {
             match reqwest::get(&format!("{authority}.well-known/jwks.json")).await {
                 Ok(response) => {
                     let text = response.text().await.unwrap();
-                    let mut lock = jwks2.lock().unwrap();
+                    let mut lock = authz_state_cloned.tokens.lock().unwrap();
                     *lock = serde_json::from_str(&text).unwrap();
                 }
                 Err(err) => {
@@ -46,14 +61,13 @@ async fn main() -> std::io::Result<()> {
                 }
             }
 
-
             tokio::time::sleep(Duration::from_secs(60)).await;
         }
     });
 
     HttpServer::new(move || {
         App::new()
-            .app_data(jwks.clone())
+            .app_data(authz_state.clone())
             .route("/", web::get().to(routes::index))
             .route("/yes", web::get().to(routes::default))
             .route("/porn", web::get().to(routes::privileged))
@@ -68,7 +82,7 @@ async fn main() -> std::io::Result<()> {
             )
             .wrap(middleware::Logger::default())
     })
-        .bind("0.0.0.0:8000")?
-        .run()
-        .await
+    .bind("0.0.0.0:8000")?
+    .run()
+    .await
 }

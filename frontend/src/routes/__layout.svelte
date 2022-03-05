@@ -3,7 +3,6 @@
 	import { user, userToken } from '$lib/stores';
 	import Index from './index.svelte';
 	import { getPrivileged } from '$lib/api';
-	import { get } from 'svelte/store';
 
 	$: {
 		if ($userToken) {

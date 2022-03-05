@@ -51,7 +51,6 @@ if (browser && client == null) {
 			val.getUser().then(val => {
 				user.set(val);
 			});
-
 			val.getTokenSilently().then(val => {
 				userToken.set(val);
 			});

@@ -1,5 +1,5 @@
-use actix_web::{Responder, HttpRequest};
 use crate::user;
+use actix_web::{HttpRequest, Responder};
 
 use super::user::UserRequest;
 
